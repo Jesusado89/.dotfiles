@@ -32,7 +32,7 @@
     "ignore-hidden": true
   },
   "clock": {
-    "format": "󰥔 {:%H:%M}",
+    "format": "󰥔 {:%I:%M%p}",
     "format-alt": "󰃭 {:%d/%m/%Y}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "on-click": "gnome-calendar"
