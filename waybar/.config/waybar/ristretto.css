@@ -1,0 +1,20 @@
+/*
+ * Ristretto - Omarchy theme port
+ * Warm coffee browns with vibrant accents
+ */
+
+@define-color base            #2c2525;
+@define-color surface         #383232;
+@define-color overlay         #211b1b;
+@define-color muted           #72696a;
+@define-color subtle          #948a8b;
+@define-color text            #e6d9db;
+@define-color love            #fd6883;
+@define-color gold            #f9cc6c;
+@define-color rose            #bebffd;
+@define-color pine            #adda78;
+@define-color foam            #85dacc;
+@define-color iris            #a8a9eb;
+@define-color highlightLow    #1e1919;
+@define-color highlightMed    #342d2d;
+@define-color highlightHigh   #4b4545;

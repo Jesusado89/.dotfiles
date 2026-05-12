@@ -1,0 +1,20 @@
+/*
+ * Osaka Jade - Omarchy theme port
+ * Deep jade green tones
+ */
+
+@define-color base            #111c18;
+@define-color surface         #1f2925;
+@define-color overlay         #0c1512;
+@define-color muted           #23372B;
+@define-color subtle          #53685B;
+@define-color text            #C1C497;
+@define-color love            #FF5345;
+@define-color gold            #459451;
+@define-color rose            #75bbb3;
+@define-color pine            #549e6a;
+@define-color foam            #2DD5B7;
+@define-color iris            #D2689C;
+@define-color highlightLow    #0b1310;
+@define-color highlightMed    #1a2521;
+@define-color highlightHigh   #343e3a;

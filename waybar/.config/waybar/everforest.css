@@ -1,0 +1,20 @@
+/*
+ * Everforest - Omarchy theme port
+ * Soft warm green forest tones
+ */
+
+@define-color base            #2d353b;
+@define-color surface         #394146;
+@define-color overlay         #21272c;
+@define-color muted           #475258;
+@define-color subtle          #475258;
+@define-color text            #d3c6aa;
+@define-color love            #e67e80;
+@define-color gold            #dbbc7f;
+@define-color rose            #d699b6;
+@define-color pine            #a7c080;
+@define-color foam            #83c092;
+@define-color iris            #d699b6;
+@define-color highlightLow    #1f2529;
+@define-color highlightMed    #353d42;
+@define-color highlightHigh   #4c5358;

@@ -1,0 +1,20 @@
+/*
+ * Retro 82 - Omarchy theme port
+ * 80s synthwave - deep blue with peach/teal accents
+ */
+
+@define-color base            #05182e;
+@define-color surface         #14253a;
+@define-color overlay         #031222;
+@define-color muted           #303442;
+@define-color subtle          #134e5a;
+@define-color text            #f6dcac;
+@define-color love            #f85525;
+@define-color gold            #e97b3c;
+@define-color rose            #3f8f8a;
+@define-color pine            #028391;
+@define-color foam            #8cbfb8;
+@define-color iris            #3f8f8a;
+@define-color highlightLow    #031020;
+@define-color highlightMed    #0f2136;
+@define-color highlightHigh   #2a3a4d;

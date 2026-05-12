@@ -1,0 +1,20 @@
+/*
+ * Miasma - Omarchy theme port
+ * Murky retro greens and rusty oranges
+ */
+
+@define-color base            #222222;
+@define-color surface         #2f2f2f;
+@define-color overlay         #191919;
+@define-color muted           #000000;
+@define-color subtle          #666666;
+@define-color text            #c2c2b0;
+@define-color love            #685742;
+@define-color gold            #b36d43;
+@define-color rose            #bb7744;
+@define-color pine            #5f875f;
+@define-color foam            #c9a554;
+@define-color iris            #bb7744;
+@define-color highlightLow    #171717;
+@define-color highlightMed    #2a2a2a;
+@define-color highlightHigh   #434343;

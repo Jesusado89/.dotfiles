@@ -1,0 +1,20 @@
+/*
+ * Hackerman - Omarchy theme port
+ * Cyberpunk neon green on dark navy
+ */
+
+@define-color base            #0B0C16;
+@define-color surface         #191a23;
+@define-color overlay         #080910;
+@define-color muted           #3E4058;
+@define-color subtle          #6a6e95;
+@define-color text            #ddf7ff;
+@define-color love            #50f872;
+@define-color gold            #50f7d4;
+@define-color rose            #cddbf4;
+@define-color pine            #4fe88f;
+@define-color foam            #7cf8f7;
+@define-color iris            #86a7df;
+@define-color highlightLow    #07080f;
+@define-color highlightMed    #14151f;
+@define-color highlightHigh   #2f3038;

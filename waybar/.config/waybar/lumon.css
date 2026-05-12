@@ -1,0 +1,20 @@
+/*
+ * Lumon - Omarchy theme port
+ * Cool clinical blues from Severance
+ */
+
+@define-color base            #16242d;
+@define-color surface         #233139;
+@define-color overlay         #101b21;
+@define-color muted           #1b2d40;
+@define-color subtle          #304860;
+@define-color text            #d6e2ee;
+@define-color love            #4d86b0;
+@define-color gold            #6fa4c9;
+@define-color rose            #b1d8ee;
+@define-color pine            #5e95bc;
+@define-color foam            #b4e4f6;
+@define-color iris            #8bc9eb;
+@define-color highlightLow    #0f191f;
+@define-color highlightMed    #1f2c35;
+@define-color highlightHigh   #38444c;

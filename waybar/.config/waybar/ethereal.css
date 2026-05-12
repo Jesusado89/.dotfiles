@@ -1,0 +1,20 @@
+/*
+ * Ethereal - Omarchy theme port
+ * Deep midnight blue with warm peach accents
+ */
+
+@define-color base            #060B1E;
+@define-color surface         #14192b;
+@define-color overlay         #040816;
+@define-color muted           #3C486D;
+@define-color subtle          #6d7db6;
+@define-color text            #ffcead;
+@define-color love            #ED5B5A;
+@define-color gold            #E9BB4F;
+@define-color rose            #ead7e7;
+@define-color pine            #92a593;
+@define-color foam            #a3bfd1;
+@define-color iris            #c89dc1;
+@define-color highlightLow    #040715;
+@define-color highlightMed    #0f1427;
+@define-color highlightHigh   #2b2f3f;

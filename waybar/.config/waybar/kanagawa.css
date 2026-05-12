@@ -1,0 +1,20 @@
+/*
+ * Kanagawa - Omarchy theme port
+ * Inspired by Hokusai - muted dark blues with autumn accents
+ */
+
+@define-color base            #1f1f28;
+@define-color surface         #2c2c34;
+@define-color overlay         #17171e;
+@define-color muted           #090618;
+@define-color subtle          #727169;
+@define-color text            #dcd7ba;
+@define-color love            #c34043;
+@define-color gold            #c0a36e;
+@define-color rose            #938aa9;
+@define-color pine            #76946a;
+@define-color foam            #6a9589;
+@define-color iris            #957fb8;
+@define-color highlightLow    #15151c;
+@define-color highlightMed    #272730;
+@define-color highlightHigh   #404048;

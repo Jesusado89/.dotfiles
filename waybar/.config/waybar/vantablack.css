@@ -1,0 +1,20 @@
+/*
+ * Vantablack - Omarchy theme port
+ * Pure black with grayscale accents
+ */
+
+@define-color base            #000000;
+@define-color surface         #0f0f0f;
+@define-color overlay         #000000;
+@define-color muted           #404040;
+@define-color subtle          #5c5c5c;
+@define-color text            #ffffff;
+@define-color love            #a4a4a4;
+@define-color gold            #cecece;
+@define-color rose            #9b9b9b;
+@define-color pine            #b6b6b6;
+@define-color foam            #b0b0b0;
+@define-color iris            #9b9b9b;
+@define-color highlightLow    #000000;
+@define-color highlightMed    #0a0a0a;
+@define-color highlightHigh   #262626;

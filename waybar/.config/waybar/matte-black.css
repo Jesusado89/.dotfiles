@@ -1,0 +1,20 @@
+/*
+ * Matte Black - Omarchy theme port
+ * Pure dark surfaces with amber accents
+ */
+
+@define-color base            #121212;
+@define-color surface         #202020;
+@define-color overlay         #0d0d0d;
+@define-color muted           #333333;
+@define-color subtle          #8a8a8d;
+@define-color text            #bebebe;
+@define-color love            #D35F5F;
+@define-color gold            #b91c1c;
+@define-color rose            #B91C1C;
+@define-color pine            #FFC107;
+@define-color foam            #bebebe;
+@define-color iris            #D35F5F;
+@define-color highlightLow    #0c0c0c;
+@define-color highlightMed    #1b1b1b;
+@define-color highlightHigh   #353535;
