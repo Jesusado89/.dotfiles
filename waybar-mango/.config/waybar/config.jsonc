@@ -22,7 +22,6 @@
     "bluetooth",
     "battery",
     "power-profiles-daemon",
-    "custom/theme",
     "clock"
   ],
   "ext/workspaces": {
@@ -175,14 +174,5 @@
     "exec": "~/.config/waybar/scripts/vpn-status.sh",
     "return-type": "json",
     "tooltip": true
-  },
-  "custom/theme": {
-    "format": "󰏘",
-    "exec": "cat ~/.config/current-theme 2>/dev/null || echo 'dracula'",
-    "interval": "once",
-    "signal": 8,
-    "on-click": "~/.dotfiles/scripts/theme-switch.sh --menu",
-    "tooltip": true,
-    "tooltip-format": "Tema activo: {}"
   }
 }

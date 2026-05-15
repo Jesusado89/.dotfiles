@@ -55,6 +55,10 @@ hl.bind(mainMod .. " + ALT + L", function()
     end
 end)
 
+-- Theme picker (también cambia wallpaper + colors de mango si está corriendo)
+hl.bind(mainMod .. " + T",         hl.dsp.exec_cmd("~/.config/waybar/scripts/theme-switcher.sh menu"))
+hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("~/.config/waybar/scripts/theme-switcher.sh rotate"))
+
 
 -----------------------------
 ---- SCROLLING LAYOUT    ----
