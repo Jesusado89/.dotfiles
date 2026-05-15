@@ -94,9 +94,9 @@ truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " 󰌾"
 read_only_style = "fg:#50f872 bg:#191a23"
+home_symbol = "󰇴"
 
 [directory.substitutions]
-"/home/yeshua" = "󰇴"
 "Documents" = "󰈙 "
 "Downloads" = " "
 "Music" = "󰝚 "

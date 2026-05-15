@@ -1327,7 +1327,7 @@ EOF
 apply_hyprlock() {
     cat > "$LOCK_CONF" << EOF
 background {
-    path = /home/shaddai/Backgrounds/dune2.jpg
+    path = ~/Backgrounds/02.jpg
     blur_passes = 2
     opacity = 0.8
     color = rgba($LOCK_BG_R,$LOCK_BG_G,$LOCK_BG_B,1.0)
