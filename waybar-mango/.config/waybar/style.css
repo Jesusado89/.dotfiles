@@ -1,6 +1,6 @@
 /* Importa la paleta de colores */
 /* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "hackerman.css";
+@import "vantablack.css";
 
 /* Estilos generales */
 * {
@@ -104,7 +104,7 @@ window#waybar.empty #window {
 }
 
 /* ===================== MPRIS (pill centrado) ===================== */
-#mpris {
+#custom-playerctl {
     background-color: alpha(@surface, 0.80);
 
     border: 1px solid alpha(@text, 0.08);
@@ -116,9 +116,9 @@ window#waybar.empty #window {
     transition: opacity 0.3s ease;
 }
 
-#mpris.playing { color: @pine; }
-#mpris.paused  { color: @gold; opacity: 0.75; }
-#mpris.stopped { opacity: 0.4; }
+#custom-playerctl.playing { color: @pine; }
+#custom-playerctl.paused  { color: @gold; opacity: 0.75; }
+#custom-playerctl.stopped { opacity: 0.4; }
 
 /* ===================== MÓDULOS DERECHO: todos transparentes ===================== */
 /* El fondo viene del contenedor .modules-right */
