@@ -1,6 +1,6 @@
 /* Importa la paleta de colores */
 /* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "vantablack.css";
+@import "hackerman.css";
 
 /* Estilos generales */
 * {
@@ -124,6 +124,7 @@ window#waybar.empty #window {
 /* El fondo viene del contenedor .modules-right */
 #tray,
 #custom-vpn,
+#custom-usb,
 #custom-updates,
 #custom-theme,
 #cpu,
@@ -163,6 +164,17 @@ window#waybar.empty #window {
 
 #custom-vpn.connected     { color: @pine; }
 #custom-vpn.disconnected  { color: @subtle; opacity: 0.55; }
+
+/* USB: oculto cuando no hay pendrive; foam montado / gold sin montar */
+#custom-usb              { color: @foam; font-weight: 700; font-size: 14px; }
+#custom-usb.mounted      { color: @foam; }
+#custom-usb.unmounted    { color: @gold; }
+#custom-usb.empty {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    opacity: 0;
+}
 #cpu.warning    { color: @gold; }
 #cpu.critical   { color: @love; }
 #memory.warning { color: @gold; }
@@ -180,6 +192,7 @@ window#waybar.empty #window {
 /* ===================== HOVER ===================== */
 #tray:hover,
 #custom-vpn:hover,
+#custom-usb:hover,
 #custom-updates:hover,
 #custom-theme:hover,
 #cpu:hover,
