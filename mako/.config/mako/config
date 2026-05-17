@@ -1,0 +1,33 @@
+# mako config — regenerado por theme-switch.sh al cambiar tema.
+# Si editas a mano: tu cambio se perderá al hacer SUPER+T.
+# Paleta inicial: vantablack.
+
+font=FiraCode Nerd Font 11
+default-timeout=5000
+background-color=#0f0f0feb
+text-color=#ffffff
+border-color=#5c5c5c
+border-size=1
+border-radius=8
+padding=12
+margin=10
+max-icon-size=48
+sort=-time
+layer=overlay
+anchor=top-right
+width=380
+height=140
+
+[urgency=low]
+border-color=#5c5c5c
+default-timeout=3000
+
+[urgency=normal]
+border-color=#5c5c5c
+
+[urgency=high]
+border-color=#a4a4a4
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1

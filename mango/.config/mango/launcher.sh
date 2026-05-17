@@ -8,6 +8,7 @@ choice=$(printf '%s\n' \
     " Calculator" \
     " Web search" \
     "󰔎 Theme" \
+    "󰸉 Wallpaper" \
     "󰐥 Power" \
     | fuzzel --dmenu --prompt "→ ")
 
@@ -39,6 +40,9 @@ case "$choice" in
         ;;
     *Theme*)
         bash ~/.config/waybar/scripts/theme-switcher.sh menu
+        ;;
+    *Wallpaper*)
+        bash ~/.config/mango/wallpaper.sh
         ;;
     *Power*)
         bash ~/.config/mango/power-menu.sh

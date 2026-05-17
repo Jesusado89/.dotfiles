@@ -4,21 +4,14 @@
 vpn_active=false
 vpn_name=""
 
-# Verificar ProtonVPN / WireGuard por NetworkManager
+# Verificar ProtonVPN / WireGuard / OpenVPN por NetworkManager
+# Filtra por columna TYPE específicamente para evitar falsos positivos por NAME.
 if command -v nmcli &> /dev/null; then
-    vpn_conn=$(nmcli -t -f NAME,TYPE connection show --active | grep wireguard)
+    vpn_conn=$(nmcli -t -f NAME,TYPE connection show --active \
+        | awk -F: '$2 == "wireguard" || $2 == "vpn" { print; exit }')
     if [ -n "$vpn_conn" ]; then
         vpn_active=true
         vpn_name=$(echo "$vpn_conn" | cut -d: -f1)
-    fi
-
-    # Verificar otros tipos de VPN
-    if [ "$vpn_active" = false ]; then
-        vpn_conn=$(nmcli -t -f NAME,TYPE connection show --active | grep vpn)
-        if [ -n "$vpn_conn" ]; then
-            vpn_active=true
-            vpn_name=$(echo "$vpn_conn" | cut -d: -f1)
-        fi
     fi
 fi
 
@@ -39,7 +32,7 @@ fi
 
 # Output JSON
 if [ "$vpn_active" = true ]; then
-    echo '{"text":"󰖂","tooltip":"'"$vpn_name"'","class":"connected"}'
+    echo '{"text":"󰦝 VPN","tooltip":"VPN activa: '"$vpn_name"'","class":"connected"}'
 else
-    echo '{"text":"󰿆","tooltip":"VPN desconectada","class":"disconnected"}'
+    echo '{"text":"󰦞 VPN","tooltip":"VPN desconectada","class":"disconnected"}'
 fi

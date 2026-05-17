@@ -1,6 +1,6 @@
 /* Importa la paleta de colores */
 /* Cambia entre: catppuccin-mocha.css, tokyo-night.css, rose-pine.css, gruvbox-dark.css, dracula.css, nord.css, obsidian.css, aurora.css, ember.css */
-@import "hackerman.css";
+@import "vantablack.css";
 
 /* Estilos generales */
 * {
@@ -55,15 +55,16 @@ window#waybar.empty #window {
 }
 
 #workspaces button {
-    padding: 0 6px;
+    padding: 4px 8px;
     margin: 0 1px;
     border-radius: 0;
     color: @subtle;
     background: transparent;
     border-bottom: 2px solid transparent;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, border-color 0.2s ease;
     min-width: 22px;
     font-size: 14px;
+    font-weight: 700;
 }
 
 #workspaces button:hover { color: @text; }
@@ -112,10 +113,11 @@ window#waybar.empty #window {
     font-weight: 500;
     padding: 4px 14px;
     margin: 5px 4px;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
-#mpris.paused { opacity: 0.7; }
+#mpris.playing { color: @pine; }
+#mpris.paused  { color: @gold; opacity: 0.75; }
 #mpris.stopped { opacity: 0.4; }
 
 /* ===================== MÓDULOS DERECHO: todos transparentes ===================== */
@@ -139,7 +141,7 @@ window#waybar.empty #window {
     padding: 4px 8px;
     margin: 0;
     border-radius: 0;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 /* ===================== COLORES ===================== */
@@ -159,7 +161,8 @@ window#waybar.empty #window {
 #power-profiles-daemon { color: @pine; }
 #clock          { color: @text; font-weight: 600; font-size: 14px; }
 
-#custom-vpn.disconnected  { color: @subtle; opacity: 0.5; }
+#custom-vpn.connected     { color: @pine; }
+#custom-vpn.disconnected  { color: @subtle; opacity: 0.55; }
 #cpu.warning    { color: @gold; }
 #cpu.critical   { color: @love; }
 #memory.warning { color: @gold; }

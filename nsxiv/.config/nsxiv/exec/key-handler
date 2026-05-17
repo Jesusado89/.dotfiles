@@ -1,0 +1,16 @@
+#!/bin/bash
+# nsxiv key-handler — invocado tras el prefijo Ctrl+X de nsxiv.
+# Recibe la combinación de tecla como $1 y los paths de imágenes por stdin.
+#
+# Atajos:
+#   Ctrl+X  w     → aplica la imagen actual como wallpaper y cierra nsxiv
+#   Ctrl+X  C-w   → idem (variante con Ctrl)
+
+case "$1" in
+    "w"|"C-w"|"Return"|"KP_Enter")
+        read -r img
+        [ -z "$img" ] && exit 0
+        bash "$HOME/.config/mango/wallpaper.sh" "$img"
+        pkill -x nsxiv
+        ;;
+esac

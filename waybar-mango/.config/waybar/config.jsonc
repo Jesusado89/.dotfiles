@@ -18,7 +18,8 @@
     "temperature",
     "backlight",
     "pulseaudio",
-    "network",
+    "network#wifi",
+    "network#eth",
     "bluetooth",
     "battery",
     "power-profiles-daemon",
@@ -56,11 +57,18 @@
     "on-scroll-down": "brightnessctl set 5%-",
     "tooltip-format": "Brillo · {percent}"
   },
-  "network": {
+  "network#wifi": {
+    "interface": "wlp2s0",
     "format-wifi": "  {essid}",
+    "format-disconnected": "",
+    "tooltip-format-wifi": "{essid} · {signalStrength}%\n{ifname} via {gwaddr}",
+    "on-click": "nm-connection-editor"
+  },
+  "network#eth": {
+    "interface": "enp3s0",
     "format-ethernet": "󰈀 {ifname}",
-    "format-disconnected": "⚠ Desconectado",
-    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-disconnected": "",
+    "tooltip-format-ethernet": "{ifname} via {gwaddr}",
     "on-click": "nm-connection-editor"
   },
   "power-profiles-daemon": {
@@ -111,9 +119,9 @@
     "tooltip-format-deactivated": "Inhibidor inactivo"
   },
   "mpris": {
-    "format": "<span foreground='#ff0000'>󰗃</span> {title} - {artist}",
-    "format-paused": "<span foreground='#e89f71'>󰏤</span> {title} - {artist}",
-    "format-stopped": "<span foreground='#c5c8c6'>󰓦</span> Detenido",
+    "format": "󰐊 {title} - {artist}",
+    "format-paused": "󰏤 {title} - {artist}",
+    "format-stopped": "󰓦 Detenido",
     "player-icons": {
       "default": "󰋾",
       "youtube-music-bin": "󰗃"
@@ -122,8 +130,8 @@
       "playing": "󰐊",
       "paused": "󰏤"
     },
-    "tooltip-format": "{player_name} | {album}",
-    "max-length": 35,
+    "tooltip-format": "{player_name}\n{title}\n{artist} · {album}",
+    "max-length": 45,
     "truncation-symbol": "…",
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl previous",
@@ -132,45 +140,43 @@
   "cpu": {
     "interval": 3,
     "format": "󰻠 {usage}%",
-    "max-length": 15,
     "tooltip": true,
     "tooltip-format": "CPU: {usage}%\nFreq: {avg_frequency}GHz"
   },
   "memory": {
     "interval": 5,
     "format": "󰍛 {}%",
-    "max-length": 15,
     "tooltip": true,
     "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G"
   },
   "temperature": {
     "interval": 4,
+    "thermal-zone": 9,
     "critical-threshold": 80,
     "format": "{icon} {temperatureC}°",
     "format-critical": "{icon} {temperatureC}°",
     "format-icons": ["󰜗", "󱃃", "󰔏", "󱃂", "󰸁"],
-    "max-length": 15,
-    "tooltip": true
+    "tooltip": true,
+    "tooltip-format": "CPU package: {temperatureC}°C"
   },
   "tray": {
-    "icon-size": 16,
+    "icon-size": 18,
     "spacing": 8,
     "show-passive-items": false,
     "ignored-items": ["blueman", "blueman-tray", "blueman-applet"]
   },
   "custom/updates": {
     "format": "󰮯 {}",
-    "interval": 300,
+    "interval": 1800,
     "exec": "~/.config/waybar/scripts/check-updates.sh",
-    "exec-if": "exit 0",
-    "on-click": "kitty -e bash -c 'sudo pacman -Syu && pkill -RTMIN+8 waybar'",
+    "on-click": "kitty -e bash -c 'paru -Syu && pkill -RTMIN+8 waybar'",
     "signal": 8,
     "tooltip": true,
     "return-type": "json"
   },
   "custom/vpn": {
     "format": "{}",
-    "interval": 5,
+    "interval": 30,
     "exec": "~/.config/waybar/scripts/vpn-status.sh",
     "return-type": "json",
     "tooltip": true

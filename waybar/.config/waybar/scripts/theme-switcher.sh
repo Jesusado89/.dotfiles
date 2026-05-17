@@ -86,7 +86,9 @@ apply_mango_colors() {
     muted=$(grep -E '^@define-color muted ' "$css" | grep -oE '#[0-9a-fA-F]{6}' | head -1 | tr -d '#')
     love=$(grep  -E '^@define-color love '  "$css" | grep -oE '#[0-9a-fA-F]{6}' | head -1 | tr -d '#')
 
-    [ -z "$iris" ] || [ -z "$muted" ] || [ -z "$love" ] && return 0
+    if [ -z "$iris" ] || [ -z "$muted" ] || [ -z "$love" ]; then
+        return 0
+    fi
 
     sed -i \
         -e "s|^focuscolor=.*|focuscolor=0x${iris}ff|" \
@@ -118,6 +120,9 @@ apply_theme() {
     reload_waybar
     apply_wallpaper "$wp"
     apply_mango_colors "$CONFIG_DIR/$key.css"
+    if [ -x "$HOME/.dotfiles/scripts/theme-switch.sh" ]; then
+        bash "$HOME/.dotfiles/scripts/theme-switch.sh" "$key" >/dev/null 2>&1 || true
+    fi
     notify-send -t 2000 "Theme" "$name"
 }
 

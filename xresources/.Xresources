@@ -1,0 +1,9 @@
+! Xresources
+! Cargado por wallpaper.sh antes de invocar nsxiv (requiere xorg-xrdb).
+
+Nsxiv.window.background: #000000
+Nsxiv.window.foreground: #ffffff
+Nsxiv.bar.background:    #000000
+Nsxiv.bar.foreground:    #cccccc
+Nsxiv.bar.font:          monospace:size=10
+Nsxiv.mark.foreground:   #50fa7b

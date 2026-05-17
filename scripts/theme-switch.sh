@@ -61,7 +61,6 @@ if [[ "$valid" == "false" ]]; then
     exit 1
 fi
 
-[[ "$next" == "$current" ]] && exit 0
 echo "Switching: $current → $next"
 
 # ─── THEME DATA ───────────────────────────────────────────────────────────────
@@ -1039,14 +1038,41 @@ apply_waybar_mango() {
     sed -i "s|@import \".*\.css\";|@import \"$WAYBAR_FILE\";|" "$WAYBAR_MANGO_CSS"
 }
 
+_rgba_to_mango_hex() {
+    local input="$1"
+    if [[ "$input" =~ ^# ]]; then
+        printf "0x%sff" "${input#\#}"
+        return
+    fi
+    if [[ "$input" =~ rgba\(([0-9]+),([0-9]+),([0-9]+),[0-9]+\) ]]; then
+        printf "0x%02x%02x%02xff" "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}" "${BASH_REMATCH[3]}"
+        return
+    fi
+    printf "0x000000ff"
+}
+
+apply_mango() {
+    local mango_conf="$DOTFILES/mango/.config/mango/config.conf"
+    [[ -f "$mango_conf" ]] || return 0
+    local focus border urgent
+    focus=$(_rgba_to_mango_hex "$BORDER_ACTIVE")
+    border=$(_rgba_to_mango_hex "$BORDER_INACTIVE")
+    urgent=$(_rgba_to_mango_hex "$SWAYNC_LOVE")
+    sed -i \
+        -e "s|^focuscolor=.*|focuscolor=$focus|" \
+        -e "s|^bordercolor=.*|bordercolor=$border|" \
+        -e "s|^urgentcolor=.*|urgentcolor=$urgent|" \
+        "$mango_conf"
+}
+
 apply_hyprland() {
+    [[ -f "$HYPR_CONF" ]] || return 0
     sed -i \
         "s|col\.active_border = .*|col.active_border = $BORDER_ACTIVE|" \
         "$HYPR_CONF"
     sed -i \
         "s|col\.inactive_border = .*|col.inactive_border = $BORDER_INACTIVE|" \
         "$HYPR_CONF"
-    # Apply in-memory immediately (no restart needed)
     hyprctl keyword general:col.active_border "$BORDER_ACTIVE" 2>/dev/null || true
     hyprctl keyword general:col.inactive_border "$BORDER_INACTIVE" 2>/dev/null || true
 }
@@ -1128,6 +1154,77 @@ tab_bar_background      $KITTY_TAB_BAR
 tab_bar_margin_width    0.0
 tab_bar_margin_height   6.0 2.0
 EOF
+}
+
+_kitty_live_repaint() {
+    local osc=""
+    osc+=$'\e]10;'"$KITTY_FG"$'\a'
+    osc+=$'\e]11;'"$KITTY_BG"$'\a'
+    osc+=$'\e]12;'"$KITTY_CUR"$'\a'
+    local idx
+    for idx in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+        local var="KITTY_C${idx}"
+        osc+=$'\e]4;'"${idx};${!var}"$'\a'
+    done
+    local kitty_pid child_pid pty
+    for kitty_pid in $(pgrep -x kitty 2>/dev/null); do
+        for child_pid in $(pgrep -P "$kitty_pid" 2>/dev/null); do
+            pty=$(readlink "/proc/$child_pid/fd/0" 2>/dev/null)
+            if [[ "$pty" =~ ^/dev/pts/[0-9]+$ ]]; then
+                printf '%b' "$osc" > "$pty" 2>/dev/null || true
+            fi
+        done
+    done
+    pkill -SIGUSR1 kitty 2>/dev/null || true
+}
+
+apply_mako() {
+    # Reescribe ~/.config/mako/config con la paleta del tema actual y recarga
+    # mako si está corriendo. Reutiliza las variables SWAYNC_* ya calculadas.
+    local mako_conf="$HOME/.config/mako/config"
+    mkdir -p "$(dirname "$mako_conf")"
+
+    local bg border high
+    bg=$(printf '%02x%02x%02x' "$SWAYNC_SURF_R" "$SWAYNC_SURF_G" "$SWAYNC_SURF_B")
+    border=$(printf '%02x%02x%02x' "$SWAYNC_MUT_R" "$SWAYNC_MUT_G" "$SWAYNC_MUT_B")
+    high="$SWAYNC_LOVE"
+
+    cat > "$mako_conf" << EOF
+# mako config — regenerado por theme-switch.sh al cambiar tema.
+# Paleta: $next
+
+font=FiraCode Nerd Font 11
+default-timeout=5000
+background-color=#${bg}eb
+text-color=$SWAYNC_TEXT
+border-color=#${border}
+border-size=1
+border-radius=8
+padding=12
+margin=10
+max-icon-size=48
+sort=-time
+layer=overlay
+anchor=top-right
+width=380
+height=140
+
+[urgency=low]
+border-color=#${border}
+default-timeout=3000
+
+[urgency=normal]
+border-color=#${border}
+
+[urgency=high]
+border-color=$high
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1
+EOF
+
+    pgrep -x mako >/dev/null 2>&1 && makoctl reload 2>/dev/null || true
 }
 
 apply_swaync() {
@@ -1477,8 +1574,15 @@ apply_starship() {
 # ─── RELOAD APPS ──────────────────────────────────────────────────────────────
 
 reload_apps() {
+    _kitty_live_repaint
+    if command -v mmsg >/dev/null 2>&1; then
+        mmsg -d reload_config 2>/dev/null || true
+    fi
     pkill -SIGUSR2 waybar 2>/dev/null || true
-    if ! swaync-client --reload-config 2>/dev/null; then
+    local swaync_ok=1
+    swaync-client --reload-css    2>/dev/null || swaync_ok=0
+    swaync-client --reload-config 2>/dev/null || swaync_ok=0
+    if [[ "$swaync_ok" -eq 0 ]]; then
         pkill swaync 2>/dev/null || true
         sleep 0.3
         swaync &
@@ -1498,10 +1602,12 @@ get_current_starship_colors
 # Apply to all apps
 apply_waybar
 apply_waybar_mango
+apply_mango
 apply_hyprland
 apply_fuzzel
 apply_kitty
 apply_swaync
+apply_mako
 apply_hyprlock
 apply_swaylock
 apply_starship
