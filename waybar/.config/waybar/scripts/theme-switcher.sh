@@ -61,6 +61,7 @@ apply_wallpaper() {
     local wp="$1"
     [ -z "$wp" ] && return 0
     [ -f "$WALLPAPERS_DIR/$wp" ] || return 0
+    ln -sf "$WALLPAPERS_DIR/$wp" "$HOME/.config/mango/current-wallpaper"
     pkill -x swaybg 2>/dev/null
     sleep 0.1
     swaybg -i "$WALLPAPERS_DIR/$wp" -m fill >/dev/null 2>&1 &

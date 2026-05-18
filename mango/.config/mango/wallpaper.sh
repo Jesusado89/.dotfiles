@@ -22,6 +22,7 @@ WALLPAPERS="$HOME/Backgrounds"
 apply() {
     local file="$1"
     [ -f "$file" ] || { notify-send -i error 'Wallpaper' "No existe: $file"; exit 1; }
+    ln -sf "$file" "$HOME/.config/mango/current-wallpaper"
     pkill -x swaybg 2>/dev/null
     swaybg -i "$file" -m fill >/dev/null 2>&1 &
     disown 2>/dev/null || true
