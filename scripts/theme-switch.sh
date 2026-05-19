@@ -1538,7 +1538,7 @@ apply_starship() {
     # Replace palette name
     sed -i "s/^palette = '.*'/palette = '$S_PALETTE'/" "$STARSHIP_CONF"
     # Replace palette section name
-    sed -i "s/^\[palettes\.[a-z_]*\]$/[palettes.$S_PALETTE]/" "$STARSHIP_CONF"
+    sed -i "s/^\[palettes\.[a-z0-9_]*\]$/[palettes.$S_PALETTE]/" "$STARSHIP_CONF"
     # Update palette values
     sed -i "s|^bg_dark.*|bg_dark   = '${S_BG}'|" "$STARSHIP_CONF"
     sed -i "s|^bg        =.*|bg        = '${S_BG}'|" "$STARSHIP_CONF"
