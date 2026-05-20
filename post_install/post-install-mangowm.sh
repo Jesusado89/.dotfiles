@@ -176,7 +176,7 @@ step_install_mangowm() {
 
     MANGOWM_PKGS=(
         # Wayland base
-        wayland wayland-protocols wlroots
+        wayland wayland-protocols
         xorg-xwayland xorg-xrdb
         qt5-wayland qt6-wayland
         xdg-desktop-portal xdg-desktop-portal-wlr
