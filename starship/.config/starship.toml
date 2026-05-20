@@ -33,24 +33,24 @@ $jobs\
 $status\
 \n$character"""
 
-palette = 'hackerman'
+palette = 'catppuccin_mocha'
 
-[palettes.hackerman]
-bg_dark   = '#0B0C16'
-bg        = '#0B0C16'
-bg_light  = '#191a23'
-bg_visual = '#2f3038'
-fg        = '#ddf7ff'
-fg_dim    = '#6a6e95'
-fg_reverse = '#0B0C16'
-red       = '#50f872'
-orange    = '#50f7d4'
-yellow    = '#a4ffec'
-green     = '#4fe88f'
-cyan      = '#7cf8f7'
-blue      = '#829dd4'
-violet    = '#86a7df'
-magenta   = '#cddbf4'
+[palettes.catppuccin_mocha]
+bg_dark   = '#1e1e2e'
+bg        = '#1e1e2e'
+bg_light  = '#313244'
+bg_visual = '#45475a'
+fg        = '#cdd6f4'
+fg_dim    = '#6c7086'
+fg_reverse = '#1e1e2e'
+red       = '#f38ba8'
+orange    = '#fab387'
+yellow    = '#f9e2af'
+green     = '#a6e3a1'
+cyan      = '#89dceb'
+blue      = '#89b4fa'
+violet    = '#cba6f7'
+magenta   = '#f5c2e7'
 
 [os]
 disabled = false
