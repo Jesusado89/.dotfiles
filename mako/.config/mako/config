@@ -1,11 +1,11 @@
 # mako config — regenerado por theme-switch.sh al cambiar tema.
-# Paleta: catppuccin-mocha
+# Paleta: osaka-jade
 
 font=FiraCode Nerd Font 11
 default-timeout=5000
-background-color=#181825eb
-text-color=#cdd6f4
-border-color=#585b70
+background-color=#1f2925eb
+text-color=#C1C497
+border-color=#53685b
 border-size=1
 border-radius=8
 padding=12
@@ -18,14 +18,14 @@ width=380
 height=140
 
 [urgency=low]
-border-color=#585b70
+border-color=#53685b
 default-timeout=3000
 
 [urgency=normal]
-border-color=#585b70
+border-color=#53685b
 
 [urgency=high]
-border-color=#f38ba8
+border-color=#FF5345
 default-timeout=0
 
 [mode=do-not-disturb]
