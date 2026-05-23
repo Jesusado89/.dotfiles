@@ -26,7 +26,6 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-ZINIT[COMPINIT_OPTS]=-C
 ZINIT[OPTIMIZE_OUT_DISK_ACCESSES]=1
 
 # Annexes must load before plugins
@@ -39,12 +38,11 @@ zinit light-mode for \
 # ============================================================================
 # Zinit Plugins (Turbo mode - deferred load)
 # ============================================================================
-
-zinit ice wait lucid nocd atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" silent
-zinit light zdharma-continuum/fast-syntax-highlighting
+# Load order: completions/autosuggestions → snippets → syntax-highlighting
+# → history-substring-search. fsh must come AFTER autosuggestions, and
+# history-substring-search AFTER fsh, otherwise widgets wrap incorrectly.
 
 export ZSH_AUTOSUGGEST_STRATEGY=history
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 zinit ice wait lucid nocd atload"_zsh_autosuggest_start" silent
@@ -52,9 +50,6 @@ zinit light zsh-users/zsh-autosuggestions
 
 zinit ice wait lucid blockf atpull'zinit creinstall -q .' silent
 zinit light zsh-users/zsh-completions
-
-zinit ice wait lucid nocd atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down" silent
-zinit light zsh-users/zsh-history-substring-search
 
 zinit ice wait lucid silent
 zinit light hlissner/zsh-autopair
@@ -71,6 +66,12 @@ zinit snippet OMZ::lib/clipboard.zsh
 zinit ice wait lucid silent
 zinit snippet OMZ::lib/git.zsh
 
+zinit ice wait lucid nocd atinit"zicompinit; zicdreplay" silent
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice wait lucid nocd atload"bindkey '^[[A' history-substring-search-up; bindkey '^[[B' history-substring-search-down" silent
+zinit light zsh-users/zsh-history-substring-search
+
 # ============================================================================
 # History Configuration
 # ============================================================================
@@ -79,13 +80,14 @@ HISTSIZE=50000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 
-setopt appendhistory
-setopt sharehistory
+setopt share_history          # implies inc_append_history
+setopt extended_history       # store timestamp + duration with each entry
 setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_find_no_dups
 setopt hist_reduce_blanks
+setopt hist_verify            # show recalled commands before executing
 
 # ============================================================================
 # Completion System
@@ -119,11 +121,11 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushdminus
-setopt correct
 setopt interactive_comments
 setopt multios
 setopt prompt_subst
 setopt no_beep
+setopt extended_glob          # **/*, qualifiers, alternation
 
 # ============================================================================
 # Aliases
@@ -144,10 +146,10 @@ alias code='codium'
 alias gcl='git clone --depth 1'
 alias gi='git init'
 alias ga='git add'
-alias gaa='git add .'
+alias gaa='git add -A'
 alias gc='git commit -m'
 alias gca='git commit -am'
-alias gp='git push origin $(git branch --show-current)'
+alias gp='git push'
 alias gpl='git pull'
 alias gs='git status'
 alias gd='git diff'
@@ -176,14 +178,14 @@ alias desk='cd ~/Desktop'
 # Safe file operations
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -iv'
-alias mkdir='mkdir -pv'
+alias rm='rm -I'   # -I only prompts when removing >3 files or recursively
 
-# Package manager (Arch Linux)
-alias update='sudo pacman -Syu'
-alias install='sudo pacman -S'
-alias search='pacman -Ss'
-alias remove='sudo pacman -Rns'
+# Package manager (Arch Linux) — prefixed to avoid clobbering coreutils 'install'
+alias pacu='sudo pacman -Syu'
+alias paci='sudo pacman -S'
+alias pacs='pacman -Ss'
+alias pacr='sudo pacman -Rns'
+alias pacq='pacman -Qi'
 
 # AI assistants
 alias opc='opencode'
@@ -198,7 +200,7 @@ if command -v eza &>/dev/null; then
     alias lt='eza --tree --icons --group-directories-first'
 fi
 command -v duf   &>/dev/null && alias df='duf'
-command -v procs &>/dev/null && alias ps='procs'
+command -v procs &>/dev/null && alias psr='procs'   # 'ps' kept as POSIX for scripts
 command -v btm   &>/dev/null && alias top='btm'
 if command -v docker &>/dev/null; then
     alias dpsa='docker ps -a'
@@ -219,7 +221,7 @@ alias dsk='disks'
 alias bm='bench'
 alias cstat='codestats'
 alias pf='psef'
-alias tree='dtree'
+alias dt='dtree'   # don't shadow the real 'tree' binary
 
 # ============================================================================
 # Functions
@@ -695,8 +697,8 @@ disks() {
     fi
 }
 
-# Help/manual viewer
-help() {
+# Quick help viewer — don't shadow zsh's 'help' / run-help builtin
+tl() {
     if command -v tldr &>/dev/null; then
         tldr "$@"
     else
@@ -785,13 +787,15 @@ foreground-current-job() { fg; }
 zle -N foreground-current-job
 bindkey '^Z' foreground-current-job
 
+# ^F shadows forward-char (rarely used in emacs mode); kept for convenience.
 open-file-finder() { zle -I; vf; zle reset-prompt; }
 zle -N open-file-finder
 bindkey '^F' open-file-finder
 
+# ^O instead of ^G — ^G is the zsh send-break (abort) and shouldn't be reused.
 open-dir-finder() { zle -I; zf; zle reset-prompt; }
 zle -N open-dir-finder
-bindkey '^G' open-dir-finder
+bindkey '^O' open-dir-finder
 
 # ============================================================================
 # Safety Hook: Prevent Starship from capturing Zinit plugin directories
@@ -836,23 +840,3 @@ fi
 # ============================================================================
 # End of ZSH Configuration
 # ============================================================================
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
-
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
-### End of Zinit's installer chunk
