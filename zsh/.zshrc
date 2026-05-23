@@ -126,6 +126,13 @@ setopt multios
 setopt prompt_subst
 setopt no_beep
 setopt extended_glob          # **/*, qualifiers, alternation
+setopt no_nomatch             # don't abort the command when a glob has no match
+setopt no_flow_control        # disable Ctrl+S/Ctrl+Q freeze, free them for binds
+setopt long_list_jobs         # show PID when reporting jobs
+setopt complete_in_word       # cursor stays put when completing mid-word
+setopt always_to_end          # cursor moves to end after completion
+setopt path_dirs              # tab-complete commands in subdirectories of PATH
+setopt magic_equal_subst      # tilde/param expansion after = (e.g. --foo=~/x)
 
 # ============================================================================
 # Aliases
@@ -226,6 +233,18 @@ alias dt='dtree'   # don't shadow the real 'tree' binary
 # ============================================================================
 # Functions
 # ============================================================================
+
+# Dependency guard — use as: _require fzf bat || return
+_require() {
+    local missing=()
+    for cmd in "$@"; do
+        command -v "$cmd" &>/dev/null || missing+=("$cmd")
+    done
+    if (( ${#missing} )); then
+        print -u2 "Error: missing required tool(s): ${missing[*]}"
+        return 1
+    fi
+}
 
 # Secure file removal
 rmk() {
@@ -742,6 +761,9 @@ export LS_COLORS="rs=0:di=37:ln=01;04;90:mh=00:pi=33:so=01;35:bd=33;01:cd=33;01:
 
 export EDITOR='nvim'
 export VISUAL='nvim'
+
+# Treat / . - _ as word boundaries so Alt+B/F navigate path segments sensibly
+WORDCHARS='*?[]~&;!#$%^(){}<>'
 
 # FZF Configuration
 export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --border=rounded \
